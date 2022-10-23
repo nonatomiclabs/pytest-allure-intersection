@@ -1,0 +1,41 @@
+[tool.poetry]
+name = "pytest-allure-intersection"
+version = "0.1.0"
+description = ""
+authors = ["Jean Cruypenynck <filaton@me.com>"]
+readme = "README.md"
+packages = [{include = "pytest_allure_intersection"}]
+
+[tool.poetry.plugins."pytest11"]
+"allure_intersection" = "pytest_allure_intersection"
+
+[tool.poetry.dependencies]
+python = ">=2.7,<3.0.0 || >=3.6.0"
+pytest = "<5"
+allure-pytest = "<=2.8.22"
+
+[tool.poetry.group.dev.dependencies]
+pdbpp = "^0.10.3"
+coverage = "<6"
+tox = "^3.20.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.tox]
+legacy_tox_ini = """
+[tox]
+skipsdist = true
+envlist = py27,py36,py37,py38,py39
+
+[testenv]
+whitelist_externals = poetry
+deps =
+    coverage >=5.0.0, <6
+    pytest >=4.0.0, <5
+commands = coverage erase
+    poetry install -v
+    coverage run --source=pytest_allure_intersection -m pytest tests
+    - coverage html
+"""

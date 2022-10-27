@@ -3,18 +3,17 @@ from allure_pytest.utils import allure_labels
 
 def pytest_addoption(parser):
     parser.addoption(
-        "--allure-selection-by-union",
+        "--allure-selection-by-intersection",
         action="store_true", default=False,
         help=(
-            "Restores default behavior of the allure-pytest plugin, i.e. selecting "
-            "tests that match any of the requested --allure-xxx flags, instead of "
-            "selecting only the tests that match all of them."
+            "Affects the selection behavior of the allure-pytest plugin by using the "
+            "intersection of the requested --allure-xxx flags, instead of the union."
         )
     )
 
 
 def pytest_collection_modifyitems(items, config):
-    if not config.option.allure_selection_by_union:
+    if config.option.allure_selection_by_intersection:
         # Get a set of the selection options selected on the command line
         selection_options = set().union(
             config.getoption("allure_epics", default=set()),

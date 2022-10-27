@@ -91,7 +91,11 @@ class TestSingleSelectionIsNotBroken(object):
 
     @staticmethod
     def test_selection_epic_only(testdir, test_names):
-        result = testdir.runpytest("--allure-epics=Epic1", "-v")
+        result = testdir.runpytest(
+            "--allure-selection-by-intersection",
+            "--allure-epics=Epic1",
+            "-v",
+        )
         assert_only_expected_tests_collected(
             result,
             expected=[test_names[0], test_names[1]],
@@ -100,7 +104,11 @@ class TestSingleSelectionIsNotBroken(object):
 
     @staticmethod
     def test_selection_feature_only(testdir, test_names):
-        result = testdir.runpytest("--allure-features=Feature1", "-v")
+        result = testdir.runpytest(
+            "--allure-selection-by-intersection",
+            "--allure-features=Feature1",
+            "-v",
+        )
         assert_only_expected_tests_collected(
             result,
             expected=[test_names[0], test_names[2]],
@@ -110,6 +118,7 @@ class TestSingleSelectionIsNotBroken(object):
 
 def test_selection_intersection_non_empty(testdir, test_names):
     result = testdir.runpytest(
+        "--allure-selection-by-intersection",
         "--allure-epics=Epic1",
         "--allure-features=Feature1",
         "-v",
@@ -123,6 +132,7 @@ def test_selection_intersection_non_empty(testdir, test_names):
 
 def test_selection_intersection_empty(testdir, test_names):
     result = testdir.runpytest(
+        "--allure-selection-by-intersection",
         "--allure-epics=Epic2",
         "--allure-features=Feature2",
         "-v",
@@ -138,7 +148,6 @@ def test_selection_old_behavior(testdir, test_names):
     result = testdir.runpytest(
         "--allure-epics=Epic1",
         "--allure-features=Feature1",
-        "--allure-selection-by-union",
         "-v",
     )
     assert_only_expected_tests_collected(

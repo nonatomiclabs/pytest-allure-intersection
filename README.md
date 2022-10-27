@@ -21,11 +21,9 @@ If you run:
 
 By default, this command would select all tests that are decorated *either* with `@allure.epic("MyGreatEpic")` or `@allure.feature("MyGreatFeature")`, *i.e.* the selection is based on the *union* of the flags.
 
-After installing the *pytest-allure-intersection* plugin, tests will be selected only if they match *both* criteria, *i.e.* a test is selected if its Allure decorators are a superset of the flags requested on the CLI.
+After installing the *pytest-allure-intersection* plugin, tests can be selected based on whether they match *both* criteria, *i.e.* a test is selected if its Allure decorators are a superset of the flags requested on the CLI.
 
-There is nothing to do to use the plugin apart from installing it.
-
-You can restore the default behavior by passing `--allure-selection-by-union`.
+You can enable that behavior by passing `--allure-selection-by-intersection`, otherwise the default behavior will not be affected in any way.
 
 ## Contributing
 

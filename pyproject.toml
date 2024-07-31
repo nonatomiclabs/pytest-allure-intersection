@@ -10,9 +10,9 @@ packages = [{include = "pytest_allure_intersection"}]
 "allure_intersection" = "pytest_allure_intersection"
 
 [tool.poetry.dependencies]
-python = ">=2.7,<3.0.0 || >=3.6.0"
-pytest = "<5"
-allure-pytest = "<=2.8.22"
+python = ">=3.9.0"
+pytest = "^8.3.2"
+allure-pytest = "<=2.9.45"
 
 [tool.poetry.group.dev.dependencies]
 pdbpp = "^0.10.3"
@@ -33,7 +33,7 @@ envlist = py27,py36,py37,py38,py39
 whitelist_externals = poetry
 deps =
     coverage >=5.0.0, <6
-    pytest >=4.0.0, <5
+    pytest
 commands = coverage erase
     poetry install -v
     coverage run --source=pytest_allure_intersection -m pytest tests
